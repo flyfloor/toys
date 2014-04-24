@@ -1,66 +1,65 @@
 window.onload = function(){
-	var prevImg = document.getElementById("previous_image"),
-			nextImg = document.getElementById("next_image");
-	var marquee = new	Marquee("image_scroll_display", "original_display", "clone_display");
-	var lastImg = document.getElementById("clone_display"),
-			contentEnd = document.getElementById("image_scroll_display").style.offsetLeft;
-			prevImg.onclick = function(){
-				marquee.rollingLeft(2000);
-				return false;
-			};
-			// nextImg.onclick = function() {
-			// 	marquee.rollingRight(2000);
-			// };
+	//Marquee
+	// var marquee = new	Marquee("image_display", "original_display", "clone_display");
+
+	//Scrolling
+	var scrollDisplay = new ScrollDisplay($("#previous_image"), $("#next_image"), $("#display_content"), 1000);
 				
 };
 
-var Animation = {
-	easeIn: function(width){
-		var speed;
-		// speed = 800 * width - width*width;
-		return speed;
-	},
-	liner: function(){
+// choice one Marquee	
+// var Marquee = function(container, original, clone){
+// 	var container = document.getElementById(container),
+// 			original = document.getElementById(original),
+// 			clone =  document.getElementById(clone);
+// 			clone.innerHTML = original.innerHTML;
+// 	var rolling = function(){
+//     if(container.scrollLeft == clone.offsetLeft){
+//       container.scrollLeft = 0;
+//     }else{
+//     	container.scrollLeft++;
+//     }
+//   }
+//  var timer = setInterval(rolling, 20);
+//  container.onmouseover = function(){clearInterval(timer)};
+//  container.onmouseout = function(){timer = setInterval(rolling, 20)};
+//}
 
-	}
-};
-	
-var Marquee = function(container, original, clone){
-	var container = document.getElementById(container),
-			original = document.getElementById(original),
-			clone =  document.getElementById(clone);
-			clone.innerHTML = original.innerHTML;
-	var goLeft = function(){
-    if(container.scrollLeft == clone.offsetLeft){
-      container.scrollLeft = 0;
-    }else{
-    	container.scrollLeft+=10;
-    }
-  }
- 	// var timer = setInterval(rolling, 20);
- 	// container.onmouseover = function(){clearInterval(timer)};
- 	// container.onmouseout = function(){timer = setInterval(rolling, 20)};
+// Choice Two scroll
 
-  return{
-  	rollingLeft: function(){
-  		var timer = setInterval(goLeft, 20);
-  	},
-  	rollingRight: function(width){
-  		var width = width||600;
-  		if(container.scrollLeft == clone.offsetLeft){
-  			container.scrollLeft = 0;
-  		}else{
-  			setInterval(function(){
+// var ScrollDisplay = function(prev, next, scrollView, displayWidth){
+// 	var width = 0;
+// 	var isEnd = function(){
+// 		if ( + displayWidth <= scrollArea.offsetWidth) {
+// 			return false;
+// 		}else{
+// 			return true;
+// 		}
+// 	};
+// 	// scrollArea.setAttribute("style", "margin-left:" + Value.toString() + "px");
+// 	prev.on("click", function(){
+// 		var offset = $(scrollView).css("margin-left").replace("px","");
+// 		console.log(offset-width);
+// 		$(scrollView).css("margin-left", offset - width);
+// 		// scrollArea.style.cssText = "margin-left:30px;"
+// 		// if (!isEnd()) {
+// 		// 	$(id).animate("margin-left", )
+// 		// console.log(offset);
+// 		// }
+// 	});
+// 	next.on("click", function(){
+// 		if (!isEnd()) {
+// 			offset += width;
+// 		}
+// 	});
 
-  				// if (container.scrollLeft > width) {
-  					// for(var i=0; i < width; i++){
-							// container.scrollLeft += Animation.easeIn(i);
-							// console.log(container.scrollLeft);
-  					// }
-  					container.scrollLeft --;
-  				// }
-  			},100);
-  		}
-  	}
-  }
-}
+// };
+
+// var ScrollDisplay = {
+// 	isEnd : function(scrollView, displayWidth){
+// 		if (scrollView.css("margin-left").replace("px")) {};
+// 	}
+// };
+
+
+

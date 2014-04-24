@@ -1,5 +1,8 @@
 html {
-	background-color: #fef0f0;
+	width: 100%;
+	height: 100%;
+	background-color: #e5e8e5;
+	box-shadow: 0 0 80px rgba(150,200,200, 0.3) inset;
 }
 
 a{
@@ -12,7 +15,8 @@ a:hover{
 
 ul li {
 	display: inline-block;
-	margin: 2px;
+	width: 200px;
+	float: left;
 }
 
 .wrapper{
@@ -20,27 +24,28 @@ ul li {
 	position: relative;
 	margin: 0 auto;
 }
-#image_scroll_display{
+#image_display{
 	position: relative;
 	width: 1000px;
 	overflow: hidden;
 	margin-top: 80px;
 }
 
-#image_scroll_display ul{
+#image_display ul{
+	width: 1600px;
 	margin: 2px;
 	padding: 0;
 	float: left;
-	height: 250px;
+	height: 300px;
 }
 
-#image_scroll_display img {
-	height: 250px;
+#image_display img {
+	height: 300px;
 }
 
 #display_content {
 	width: 9999px;
-	height: 250px;
+	height: 300px;
 }
 
 
@@ -54,7 +59,7 @@ ul li {
 	height: 25px;
 	background-color: #fff;
 	border-radius: 25px;
-	border: 1px solid #fefefe;
+	border: 1px solid #cde;
 	box-shadow: 0 1px 8px rgba(180,180,180,0.5) inset;
 }
 
@@ -64,11 +69,11 @@ ul li {
 }
 
 .previous-arrow {
-	left: -30px;
+	left: -80px;
 }
 
 .previous-arrow:before, .next-arrow:before {
-	content: "\0000";
+	content: "";
 	position: absolute;
 	width: 10px;
 	height: 10px;
@@ -86,5 +91,5 @@ ul li {
 }
 
 .next-arrow {
-	right: -30px;
+	right: -80px;
 }
