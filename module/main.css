@@ -6,17 +6,45 @@ html {
 }
 
 a{
+	display: inline-block;
+	cursor: pointer;
 	text-decoration: none;
 }
 
-a:hover{
-	-webkit-transition:all 1s;
+ul li {
+	margin-right: -20px;
+	cursor: pointer;
+	display: inline-block;
+	width: 215px;
+	float: left;
+	box-shadow: 0 0 2px rgba(0,0,0,0.3);
 }
 
-ul li {
-	display: inline-block;
-	width: 200px;
-	float: left;
+
+li:hover {
+	/*width: 220px;*/
+	box-shadow: 0 0 20px rgba(0,0,0,0.3);
+	opacity: 1;
+	-webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-ms-transition: all 1s;
+	-o-transition: all 1s;
+	transition: all 1s;
+
+}
+img {
+	border-left: 2px solid rgba(0,0,0,0.3);
+	box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
+	border-radius: 10px;
+}
+
+li img:hover {
+	margin-left: -8px;
+	-webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-ms-transition: all 1s;
+	-o-transition: all 1s;
+	transition: all 1s;
 }
 
 .wrapper{
@@ -32,8 +60,9 @@ ul li {
 }
 
 #image_display ul{
-	width: 1600px;
-	margin: 2px;
+	position: absolute;
+	width: 2200px;
+	margin: 0;
 	padding: 0;
 	float: left;
 	height: 300px;
@@ -44,7 +73,7 @@ ul li {
 }
 
 #display_content {
-	width: 9999px;
+	/*width: 9999px;*/
 	height: 300px;
 }
 
@@ -66,6 +95,12 @@ ul li {
 .previous-arrow:hover, .next-arrow:hover{
 	box-shadow: 0 1px 5px rgba(200,200,200, 0.4) inset;
 	border: 1px solid #ccc;
+	-webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-ms-transition: all 1s;
+	-o-transition: all 1s;
+	transition: all 1s;
+
 }
 
 .previous-arrow {
@@ -82,12 +117,20 @@ ul li {
 }
 .previous-arrow:before{
 	-webkit-transform:rotate(135deg);
+	-moz-transform: rotate(135deg);
+	-ms-transform: rotate(135deg);
+	-o-transform: rotate(135deg);
+	transform: rotate(135deg);
 	margin-left: 12px;
 }
 
 .next-arrow:before{
 	margin-left: 2px;
 	-webkit-transform:rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
 }
 
 .next-arrow {
