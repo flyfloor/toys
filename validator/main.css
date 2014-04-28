@@ -1,22 +1,27 @@
 html{
 	width: 100%;
 	/*height: 500px;*/
-	color: #ddd;
-	background-repeat: no-repeat;
+	/*color: #ddd;*/
+	/*background-repeat: no-repeat;*/
 }
 
-.full-size{
+/*.full-size{
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	background-image: url(background.jpg);
-	/*background-position: 50% 50%;*/
+	background-position: 50% 50%;
 	background-size:cover; 
 	width: 100%;
 	height: 100%;
 	z-index: -1;
+}*/
+
+input{
+	padding: 0;
+	margin: 0;
 }
 
 input:focus{
@@ -26,8 +31,8 @@ input:focus{
 }
 
 form {
-	padding: 30px 80px 0 0;
-	color: #ddd;	
+	padding: 30px 30px 0 0;
+	color: #555;	
 }
 
 ::-webkit-input-placeholder { color:#ccc; font-style: italic; font-family: sans-serif;}
@@ -41,10 +46,53 @@ input:-moz-placeholder{ color:#ccc; font-style: italic; font-family: sans-serif;
 	margin: 0 auto;
 }
 
+
+input[type="submit"] {
+	width: 80px;
+	height: 35px;
+	padding: 5px;
+}
+
+.submit-btn {
+	cursor: pointer;
+	border-radius: 2px;
+	background-color: #6F8862;
+	color: #eff;
+	border: 1px solid #657733;
+	box-shadow: 0 0 10px rgba(100,180, 100, 0.8) inset, 0 0 3px rgba(0, 180,100,0.8);
+}
+
+.submit-btn:hover {
+	-webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-ms-transition: all 1s;
+	-o-transition: all 1s;
+	transition: all 1s;
+	background-color: #695;
+	border: 1px solid #684;
+	box-shadow:  0 0 3px rgba(0, 180,100,0.8);
+}
+
+.disabled{
+	cursor: default;
+	color: #efe;
+	background-color: #ccc;
+	border: 1px solid #bbb;
+	box-shadow: none;
+}
+
+.disabled:hover{
+	background-color: #ccc;
+	border: none; 
+	border: 1px solid #bbb;
+	box-shadow:  none;
+}
+
 input[type="text"],input[type="password"],input[type="email"]{
 	border: 1px solid #ddd;
 	line-height: 25px;
-	width: 200px;
+	height: 25px;
+	width: 250px;
 	border-radius: 2px;
 }
 
@@ -58,9 +106,9 @@ input[type="email"]:focus{
 
 
 .re_form {
-	box-shadow: 0 0 20px rgba(0,0,0,0.5),0 0 20px rgba(0,0,0,0.5) inset;
+	/*box-shadow: 0 0 20px rgba(0,0,0,0.5),0 0 20px rgba(0,0,0,0.5) inset;*/
 	border-radius: 2px;
-	background-color: rgba(200,200,200,0.4);
+	background-color: rgba(200,200,200,0.1);
 	padding: 20px;
 	/*margin: 50px auto;*/
 	width: 400px;
@@ -68,6 +116,7 @@ input[type="email"]:focus{
 }
 
 .re_form label {
+	padding-right: 10px;
 	text-align: right;
 }
 

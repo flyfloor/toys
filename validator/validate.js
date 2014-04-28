@@ -4,8 +4,8 @@ var validError = {
 	nickname: '内容不符合要求'
 }
 
-var Validator = functin(options, form){
-	checkEmail : functin(){
+var Validator = function(options, form){
+	this.checkEmail = function(){
 
 	}
 };
