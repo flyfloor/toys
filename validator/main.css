@@ -35,9 +35,9 @@ form {
 	color: #555;	
 }
 
-::-webkit-input-placeholder { color:#ccc; font-style: italic; font-family: sans-serif;}
-::-moz-placeholder { color:#ccc; font-style: italic; font-family: sans-serif;}
-input:-moz-placeholder{ color:#ccc; font-style: italic; font-family: sans-serif;}
+::-webkit-input-placeholder { color:#ccc; font-style: italic; font-family: sans-serif; font-weight: lighter;}
+::-moz-placeholder { color:#ccc; font-style: italic; font-family: sans-serif; font-weight: lighter;}
+input:-moz-placeholder{ color:#ccc; font-style: italic; font-family: sans-serif; font-weight: lighter;}
 
 .wrapper {
 	padding: 100px;
