@@ -2,7 +2,6 @@
 <html>
 	<head>
 		<title>validation of a form</title>
-		<link rel="stylesheet" href="font-awesome.min.css">
 		<link rel="stylesheet" href="main.css">
 		<script src="jquery-2.1.0.min.js"></script>
 	</head>
@@ -14,7 +13,7 @@
 				<form>
 					<div class="field">
 						<label for="nickname">nickname:</label>
-						<input type="text"  id="nickname" name="nickname" class="required" placeHolder="Nickname for register"/>
+						<input type="text"  id="nickname" name="nickname" class="required" placeHolder="Letter digit or underline is advisable"/>
 					</div>				
 					<div class="field">
 						<label for="password">password:</label>
@@ -25,10 +24,9 @@
 						<input type="email"  id="email" name="email" class="required" placeHolder="Email address"/>
 					</div>
 					<div class="field">
-						<input type="submit" id="submit" value="register" class="submit-btn"/>
+						<input type="submit" id="submit" value="register" class="submit-btn disabled"/>
 					</div>
 				</form>
-				<button id="shit">xxx</button>
 			</div>
 		</div>
 		<script src="validate.js"></script>

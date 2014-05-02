@@ -1,10 +1,13 @@
 var Validator = {};
 
 var validError = {
-	requiredMsg: '此项必填',
-	emailMsg: 'email格式不对',
-	invalidMsg: '包含非法字符',
-	rangeMsg: '长度不符合'
+	requiredMsg: 'required field',
+	emailMsg: 'email incorrect',
+	invalidMsg: 'contains invalid characters',
+	rangeMsg: function(size){
+		return size[0] + '-' + size[1] + 'characters required';
+	},
+	passwordMsg: 'start with a letter, 8-16 characters'
 };
 
 
@@ -15,10 +18,13 @@ Validator.check = function(which, value){
 		},
 
 		nickname : function(value){
-	    return /^[0-9a-zA-Z\u4e00-\u9fa5]{2,12}$/i.test(value);
+	    return /^[0-9a-zA-Z_\u4e00-\u9fa5]{2,12}$/i.test(value);
+		},
+		invalid: function(value){
+			return /[,\.;\:#"'!@\$%\^\&\*\(\)\-\_+=]/i.test(value);
 		},
 		password: function(value){
-			return /^[a-zA-Z]\w{8,16}$/i.test(value);
+			return /^[a-zA-Z]\w*$/i.test(value);
 		},
 	};
 	return check[which](value);
@@ -37,7 +43,7 @@ Validator.errorDisplay = function(element, msg){
 
 Validator.sizeFit = function(value, size){
 	var length = $.trim(value).length;
-	return length > size[0] && length < size[1];
+	return length >= size[0] && length <= size[1];
 }
 
 var ValidForm = function($form){
@@ -54,7 +60,7 @@ var ValidForm = function($form){
 	function validPassword(){
 		var passwordVal = findByname("password").val();
 		return Validator.required(passwordVal) && Validator.check("password", passwordVal)
-						 && Validator.sizeFit(passwordVal, [8,15]);
+						 && Validator.sizeFit(passwordVal, [8,16]);
 	}
 
 	function validNickname(){
@@ -72,9 +78,43 @@ var ValidForm = function($form){
 	});
 
 	$form.find(".required").on("blur", function(){
+		if (validEmail() && validPassword() && validNickname()) {
+			$(":submit").removeClass("disabled");
+		}else{
+			$(":submit").addClass("disabled");
+		}
 		if (!Validator.required($(this).val())) {
 			Validator.errorDisplay($(this), validError.requiredMsg);
 		}else{
+			switch($(this).attr("name")){
+				case "email":
+					if (!Validator.check("email", $(this).val())) {
+						Validator.errorDisplay($(this), validError.emailMsg);
+					}
+					break;
+				case "password":
+					if (Validator.check("invalid", $(this).val())) {
+						Validator.errorDisplay($(this), validError.invalidMsg);
+					}else{
+						if (!Validator.sizeFit($(this).val(), [8, 16])) {
+							Validator.errorDisplay($(this), validError.rangeMsg([8, 16]));
+						}else{
+							if (!Validator.check("password", $(this).val())) {
+								Validator.errorDisplay($(this), validError.passwordMsg);
+							}
+						}
+					}
+					break;
+				case "nickname":
+					if (!Validator.sizeFit($(this).val(), [2, 20])) {
+						Validator.errorDisplay($(this), validError.rangeMsg([2,20]));
+					}else{
+						if (!Validator.check("nickname", $(this).val())) {
+							Validator.errorDisplay($(this), validError.invalidMsg);
+						}
+					}
+					break;
+			}
 
 		}
 	});
@@ -87,7 +127,5 @@ var ValidForm = function($form){
 
 
 $(document).ready(function(){
-	// $("#shit").on("click", function(){
-		console.log(ValidForm($("form")));		
-	// });
+	console.log(ValidForm($("form")));		
 });
