@@ -125,7 +125,6 @@ var ValidForm = function($form){
 
 }
 
-
 $(document).ready(function(){
 	console.log(ValidForm($("form")));		
 });
