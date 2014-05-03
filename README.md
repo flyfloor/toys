@@ -1,4 +1,4 @@
 Toys
 ====
 
-Always do something fun
+Always do something fun & use chrome
