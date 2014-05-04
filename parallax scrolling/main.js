@@ -19,15 +19,19 @@ var Robb = {
 $(document).ready(function(){
 	var fullHeight = $(document).scrollHeight;
 
-	window.onmousewheel = function(event){
+	window.onmousewheel = function mouseWheel(event){
 		event.preventDefault();
-		if (event.wheelDelta < 0) {
-			$("body, html").stop().animate({scrollTop: '+=800'}, "slow");
-		}else{
-			$("body, html").stop().animate({scrollTop: '-=800'}, "slow");
-		}
+		console.log();
+		setTimeout(function(){
+			if (event.wheelDelta < 0) {
+				$("body, html").stop().animate({scrollTop: '+=800'}, "slow");
+			}else{
+				$("body, html").stop().animate({scrollTop: '-=800'}, "slow");
+			}
+		},400);
 		return false;
 	};
+
 
 	
 
@@ -36,26 +40,24 @@ $(document).ready(function(){
 	$(window).scroll(function(){
 		var topHeight = $(window).scrollTop();
 		
-		//badge
-		if (topHeight >= 500 & topHeight <= 800 ) {
-			$badge.stop().animate({top: "80px", left: "120px"}, 1000);
-		}else if(topHeight > 800 & topHeight <= 1800){
-			$badge.stop().animate({top: "250px", left: "1100px"}, 1000);
-		}else{
-			$badge.stop().animate({opacity: 0});
-		}
-
-		//
-		if (topHeight > 0 & topHeight < 1000) {
+		//animtations
+		if (topHeight >= 300 & topHeight <= 900) {
 			Ned.appear();
+			$badge.stop().animate({top: "70px", left: "120px"}, 1000);
 		}else{
 			Ned.disappear();
-			if (topHeight < 2000) {
+			if(topHeight > 900 & topHeight <= 1800){
 				Robb.appear();
-			}else{
+				$badge.stop().animate({top: "250px", left: "1100px"}, 1000);
+			}else if (topHeight > 1800) {
 				Robb.disappear();
 			}	
 		}
+
+		if (topHeight < 300 || topHeight > 1800) {
+			$badge.stop().animate({opacity: 0});
+		}
+
 	});
 });
 
