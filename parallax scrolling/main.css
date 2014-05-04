@@ -4,6 +4,16 @@ html, body {
 	background: #1a1d1f;
 	color: #eee;
 	font-family: cursive;
+	overflow-x: hidden;
+}
+
+#badge {
+	z-index: 999;
+	opacity: 0.8;
+	width: 160px;
+	position: fixed;
+	left: 720px;
+	top: 306px;
 }
 
 p, figure {
@@ -36,7 +46,6 @@ img {
 	width: 450px;
 	color: #fff;
 	font-size: 36px;
-	font-family: fantasy;
 	margin-left: 430px;
 	padding-top: 80px;
 	text-align: center;
@@ -83,10 +92,12 @@ section p {
 }
 
 #robb p {
+	position: absolute;
 	padding: 100px;
-	display: inline-block;
 	width: 400px;
-	margin-left: 700px;
+	left: 1200px;
+	margin: 0;
+	opacity: 0;
 }
 
 #snow {
@@ -133,7 +144,6 @@ section p {
 
 #footer p {
 	color: #d15;
-	font-family: fantasy;
 	margin: 0 auto;
 	width: 800px;
 	text-align: center;
