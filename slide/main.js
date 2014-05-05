@@ -42,7 +42,7 @@ var ScrollDisplay = function(prev, next, scroll_view, display_width, page_count)
 		}
 	}
 
-	prev.on("click", function(){
+	function prevHandle(){
 		if (page !== page_count) {
 			if (page === page_count -1 ) {
 				scroll_view.stop().animate({"left" : '-='+ least_width}, 'slow');
@@ -52,8 +52,9 @@ var ScrollDisplay = function(prev, next, scroll_view, display_width, page_count)
 			page++;
 			navi_status.navi(prev);
 		}
-	});
-	next.on("click", function(){
+	}
+
+	function nextHandle(){
 		if (page !== 1) {
 			if (page === 2) {
 				scroll_view.stop().animate({"left" : 0}, 'slow');
@@ -63,7 +64,30 @@ var ScrollDisplay = function(prev, next, scroll_view, display_width, page_count)
 			page--;
 			navi_status.navi(prev);
 		}
+	}
+
+	var intervalTimer = null;
+	
+	function intervalTimerSetter(handler){
+		clearTimeout(intervalTimer);
+
+		intervalTimer = setTimeout(function(){
+			handler();
+		}, 500);
+	}
+
+
+	prev.on("click", function(){
+		intervalTimerSetter(prevHandle);
+
+	}).on("dblclick", function(event){
+		intervalTimerSetter(prevHandle);
+
 	});
+
+	next.on("click", function(){
+		nextHandle();
+	})
 
 };
 
