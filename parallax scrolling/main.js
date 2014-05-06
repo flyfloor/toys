@@ -29,7 +29,7 @@ function mouseWheel(event){
 			$("body, html").stop().animate({scrollTop: '-=800'}, "slow");
 		}
 
-	}, 500);
+	}, 200);
 };  
 
 $(document).ready(function(){
