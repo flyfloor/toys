@@ -1,8 +1,8 @@
 $(document).ready(function(){
+	var $input = $("#automatch");
 
-	$("#automatch").on("keyup", function(event){
-		var keyCode = event.keyCode,
-				inputStr = $(this).val(),
+	var loadData = function(){
+		var	inputStr = $input.val(),
 			 	$list = $("ul#hints");				
 
 		if (inputStr) {			
@@ -14,7 +14,7 @@ $(document).ready(function(){
 				success: function(data){
 					$list.find("li").remove();
 					for(var i = 0; i < data.length; i++ ){
-						var $item = $("<li></li>").addClass("hit-item");
+						var $item = $("<li></li>").addClass("hint-item");
 						$item.text(data[i].name);
 						$item.appendTo($list);
 					}
@@ -22,11 +22,26 @@ $(document).ready(function(){
 				error: function(xhr, status, error){
 					console.log(error);
 				}
+			}).done(function(){
+				if ($list.has("li").length) {
+					$list.removeClass("noItem");
+				}else{
+					$list.addClass("noItem");
+				}
 			});
 		}
+	};
 
+	$input.on("keyup", function(){
+		loadData();
+	}).on("change", function(){
+		console.log($input);
+		loadData();
 	});
 
+	$(document).on("click", ".hint-item", function(){
+		$input.val($(this).text());
+	});
 
 });
 
