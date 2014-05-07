@@ -1,0 +1,49 @@
+::-webkit-input-placeholder { color:#ccc; font-style: italic;  font-weight: lighter;}
+::-moz-placeholder { color:#ccc; font-style: italic;  font-weight: lighter;}
+input:-moz-placeholder{ color:#ccc; font-style: italic;  font-weight: lighter;}
+
+ul li {
+	list-style: none;
+}
+
+#automatch {
+	padding: 8px;
+	outline: none;
+	font-size: 20px;
+	width: 100%;
+	line-height: 30px;
+	border: 1px solid rgba(0,0,0,0.3);
+	border-radius: 5px;
+	box-shadow: 1px 2px 10px rgba(0,0,0,0.2) inset;
+}
+
+#automatch:focus{
+	border: 1px solid rgba(0,0,0,0.3);
+	-webkit-transition: all 1s;
+	/*ontline: none;*/
+}
+
+#hints-board {
+	margin: 200px auto;
+	width: 500px;
+	display: block;
+}
+
+#hints {
+	padding: 2px 0 0;
+	width: 100%;
+	border: none;
+	display: block;
+	margin-top: -1px;
+	background-color: #fcfcfc;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5)
+}
+
+#hints li {
+	padding: 5px 10px;
+}
+
+#hints li:hover{
+	background: #eee;
+	cursor: pointer;
+}
