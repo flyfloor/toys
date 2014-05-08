@@ -3,6 +3,8 @@ $(document).ready(function(){
 			$list = $("ul#hints"),
 			$hintsBoard = $("#hints-board");
 
+	$input.focus();
+
 	var HintList = {
 		appear: function(element, data){
 			element.find("li").remove();
@@ -15,15 +17,15 @@ $(document).ready(function(){
 
 		disappear: function(element){
 			element.find("li").remove();
-			element.addClass("noItem");
+			element.fadeOut(200);
 		},
 
-		next: function(element){
+		nextVal: function(element){
 			element.removeClass("selected").next().addClass("selected");
 			return this.textVal(element.next());
 		},
 
-		prev: function(element){
+		prevVal: function(element){
 			element.removeClass("selected").prev().addClass("selected");
 			return this.textVal(element.prev());
 		},
@@ -52,9 +54,9 @@ $(document).ready(function(){
 				}
 			}).done(function(){
 				if ($list.has("li").length) {
-					$list.removeClass("noItem");
+					$list.fadeIn(200);
 				}else{
-					$list.addClass("noItem");
+					$list.fadeOut(200);
 				}
 			});
 		}
@@ -70,26 +72,43 @@ $(document).ready(function(){
 	});
 
 	$hintsBoard.on("keyup", function(event){
-		var keyCode = event.keyCode,
+		var displayText,
+				keyCode = event.keyCode,
 				$selectItem = $list.find("li.selected");
-		if (keyCode === 40) {
-			if ($selectItem.length) {
-				$input.val(HintList.next($selectItem));
-			}else{
-				var $firstItem = $list.find("li:first");
-				$input.val(HintList.textVal($firstItem));
-				$firstItem.addClass("selected");
-			}
-		}else if (keyCode === 38) {
-			if ($selectItem.length) {
-				$input.val(HintList.prev($selectItem));
-			}
+
+		switch(keyCode){
+			case 40:
+				if ($selectItem.length) {
+					$input.val(HintList.nextVal($selectItem));
+				}else{
+					var $firstItem = $list.find("li:first");
+					$firstItem.addClass("selected");
+					$input.val(HintList.textVal($firstItem));
+				}
+				break;
+
+			case 38:
+				if ($selectItem.length) {
+					$input.val(HintList.prevVal($selectItem));
+				}
+				break;
+
+			default:
+				break;
 		}
+
+
 	});
 
 	$(document).on("click", ".hint-item", function(){
 		$input.val(HintList.textVal($(this)));
 		HintList.disappear($list);
+	});
+
+	$input.on("blur", function(event){
+		setTimeout(function(){
+			HintList.disappear($list);			
+		}, 200);
 	});
 	
 
