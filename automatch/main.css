@@ -6,6 +6,11 @@ ul li {
 	list-style: none;
 }
 
+a {
+	text-decoration: none;
+	color: #222;
+}
+
 #automatch {
 	padding: 8px;
 	outline: none;
@@ -24,7 +29,7 @@ ul li {
 }
 
 #hints-board {
-	margin: 200px auto;
+	margin: 100px auto;
 	width: 500px;
 	display: block;
 }
@@ -37,6 +42,9 @@ ul li {
 	margin-top: -1px;
 	background-color: #fcfcfc;
 	box-shadow: 0 1px 10px rgba(0,0,0,0.5);
+	max-height: 400px;
+	overflow-y: scroll; 
+
 }
 
 #hints li {
@@ -50,6 +58,10 @@ ul li {
 	cursor: pointer;
 }
 
+.selected {
+	background: #eee;
+}
+
 .noItem {
-	box-shadow: none;
+	display: none;
 }
