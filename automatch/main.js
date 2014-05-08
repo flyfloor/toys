@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 	var $input = $("#automatch"),
 			$list = $("ul#hints"),
 			$hintsBoard = $("#hints-board");
@@ -9,7 +10,7 @@ $(document).ready(function(){
 		appear: function(element, data){
 			element.find("li").remove();
 			for(var i = 0; i < data.length; i++ ){
-				var $item = $('<li><a href='+'"javascript:void(0);"'+'></a></li>').addClass("hint-item");
+				var $item = $('<li><a href="javascript:void(0);"></a></li>').addClass("hint-item");
 				$item.children("a").text(data[i].name);
 				$item.appendTo(element);
 			}
@@ -105,11 +106,11 @@ $(document).ready(function(){
 		HintList.disappear($list);
 	});
 
-	$input.on("blur", function(event){
-		setTimeout(function(){
-			HintList.disappear($list);			
-		}, 200);
-	});
+	// $input.on("blur", function(event){
+	// 	setTimeout(function(){
+	// 		HintList.disappear($list);			
+	// 	}, 200);
+	// });
 	
 
 });
