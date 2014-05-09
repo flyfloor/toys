@@ -6,12 +6,19 @@ $(document).ready(function(){
 
 	$input.focus();
 
+	var highLight = function(value, str){
+		value = value.toString();
+
+		return str.replace(value, '<span class="highLight">'+value +'</span>');
+	};
+
+
 	var HintList = {
 		appear: function(element, data){
 			element.find("li").remove();
 			for(var i = 0; i < data.length; i++ ){
 				var $item = $('<li><a href="javascript:void(0);"></a></li>').addClass("hint-item");
-				$item.children("a").text(data[i].name);
+				$item.children("a").html(highLight($input.val(), data[i].name));
 				$item.appendTo(element);
 			}
 		},
@@ -36,7 +43,6 @@ $(document).ready(function(){
 		}
 
 	};
-
 
 	var loadData = function(){
 		var	inputStr = $input.val();			 					

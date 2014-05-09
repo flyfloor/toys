@@ -15,6 +15,11 @@ a {
 	color: #222;
 }
 
+.highLight{
+	color: #4C59F5;
+	font-weight: bold;
+}
+
 #automatch {
 	padding: 8px;
 	outline: none;
@@ -55,7 +60,7 @@ a {
 
 #hints li {
 	font-size: 16px;
-	color: #222;
+	color: #543;
 	padding: 5px 20px;
 }
 
