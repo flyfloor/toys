@@ -25,7 +25,7 @@ $(document).ready(function(){
 
 		disappear: function(element){
 			element.find("li").remove();
-			element.fadeOut(200);
+			element.fadeOut(0);
 		},
 
 		nextVal: function(element){
