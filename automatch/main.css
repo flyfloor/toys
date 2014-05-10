@@ -24,10 +24,10 @@ a {
 	font-weight: bold;
 }
 
-#automatch {
-	display: inline;
+input {
+	display: inline-block;
 	padding: 8px;
-	outline: none;
+	outline: 0;
 	font-size: 20px;
 	width: 482px;
 	line-height: 30px;
@@ -35,10 +35,10 @@ a {
 	border-radius: 2px;
 }
 
-#automatch:focus{
-	border: 5px solid #5EB99C;
-	-webkit-transition: all 1s;
-	/*ontline: none;*/
+input:focus{
+	border: 5px solid #66AC95;
+	box-shadow: 0 1px 5px rgba(0,0,0,0.3) inset;
+	-webkit-transition: all 0.3s;
 }
 
 #hints-board {
@@ -59,6 +59,7 @@ a {
 	max-height: 400px;
 	overflow-y: scroll; 
 	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 1px; 
 }
 
 #hints li {

@@ -112,11 +112,11 @@ $(document).ready(function(){
 		HintList.disappear($list);
 	});
 
-	// $input.on("blur", function(event){
-	// 	setTimeout(function(){
-	// 		HintList.disappear($list);			
-	// 	}, 200);
-	// });
+	$input.on("blur", function(event){
+		setTimeout(function(){
+			HintList.disappear($list);			
+		}, 200);
+	});
 	
 
 });
