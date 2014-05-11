@@ -2,23 +2,31 @@
 <html>
 	<head>
 		<title>custom dialog</title>
-		<link rel="stylesheet" href="main.js">
+		<script src="jquery-2.1.0.min.js"></script>
+		<script src="dialog.js"></script>
+		<link rel="stylesheet" href="main.css">
 	</head>
 	<body>
-		<div class="modal-dialog in">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
-						<button style="margin-top:-10px">x</button>
-						<div></div>
-					</div>
-					<div class="modal-footer">
-						
-					</div>
-				</div>
-				
-			</div>
-			<div class="backdrop"></div>
+		<div class="wrapper">
+			<ul class="nav">
+				<li class="active"><a href="#">JQuery</a></li>
+				<li><a href="#">HTML</a></li>
+			</ul>
+			<pre>
+	$("#create_dialog").on("click", function(){
+		Dialog({
+			title:"",
+			content: "",
+			yesFunc: function(){
+				alert("yes button handle");
+			},
+			noFunc: function(){
+				alert("no button handle");
+			}
+		});
+	});
+			</pre>
+			<button id ="create_dialog" class="btn">new dialog</button>
 		</div>
 		<script src="main.js"></script>
 	</body>
