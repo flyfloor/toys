@@ -17,18 +17,24 @@ ul {
 	margin: 0;
 }
 
+ul:after {
+	content: "";
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
 ul li {
 	margin: 0;
 	padding: 5px 20px;
 	list-style: none;
 	display: inline-block;
+	border: 1px solid #fff;
 }
 
 .active {
 	border: 1px solid #ccc;
-	border-top: none;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
+	border-bottom: none;
+	border-top: 2px solid rgba(200,0,0,0.5);
+	box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
 
 .active a {
@@ -38,6 +44,7 @@ ul li {
 
 pre {
 	margin: 0;
+	margin-top: -1px;
 	background: #293a5c;
 	color: #D32D24;
 	display: inline-block;
@@ -47,8 +54,14 @@ pre {
 	word-spacing: 5px;
 	letter-spacing: 1px;
 	line-height: 25px;
-	overflow: scroll;
+	overflow: auto;
 }
+
+
+#HTML {
+	display: none;
+}
+
 
 .wrapper {
 	width: 1000px;

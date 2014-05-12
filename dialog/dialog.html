@@ -8,25 +8,31 @@
 	</head>
 	<body>
 		<div class="wrapper">
-			<ul class="nav">
-				<li class="active"><a href="#">JQuery</a></li>
-				<li><a href="#">HTML</a></li>
-			</ul>
-			<pre>
-	$("#create_dialog").on("click", function(){
-		Dialog({
-			title:"",
-			content: "",
-			yesFunc: function(){
-				alert("yes button handle");
-			},
-			noFunc: function(){
-				alert("no button handle");
-			}
+			<h3 style="font-style:italic;font-weight:lighter">code here:</h3>
+			<section style="padding: 0 10px;">
+				<ul class="nav">
+					<li class="active"><a href="#">JQuery</a></li>
+					<li><a href="#">HTML</a></li>
+				</ul>
+				<pre id="JQ">
+		$("#create_dialog").on("click", function(){
+			Dialog({
+				title:"",
+				content: "",
+				yesFunc: function(){
+					alert("yes button handle");
+				},
+				noFunc: function(){
+					alert("no button handle");
+				}
+			});
 		});
-	});
-			</pre>
-			<button id ="create_dialog" class="btn">new dialog</button>
+				</pre>
+				<pre id="HTML">
+		&lt;button id ="create_dialog" class="btn"&gt;new dialog&lt;/button&gt;
+				</pre>
+				<button id ="create_dialog" class="btn">new dialog</button>
+			</section>
 		</div>
 		<script src="main.js"></script>
 	</body>

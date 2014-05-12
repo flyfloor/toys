@@ -3,8 +3,10 @@ $(document).ready(function(){
 });
 
 var Overlay = {
-	appear: function(){
-		$("#overlay").fadeIn(200);
+	appear: function(value){
+		if (value) {
+			$("#overlay").fadeIn(200);
+		}
 	},
 	disappear: function(){
 		$("#overlay").fadeOut(200);
@@ -15,7 +17,7 @@ var Dialog = function(options){
 
 	this.title = options.title || 'new dialog';
 	this.content = options.content || '<p>dialog content</p>';
-	this.blur = options.blur || true;
+	this.blur = options.blur === false? false:true;
 	this.yesText = options.yesText || "ok";
 	this.noText = options.noText || "cancel";
 	this.yesFunc = options.yesFunc;
@@ -62,7 +64,8 @@ var Dialog = function(options){
 	
 		
 		$dialog.append($d_head, $d_body, $d_foot).appendTo($wrapper);
-		Overlay.appear();
+		console.log(options.blur);
+		Overlay.appear(that.blur);
 		$("body").append($wrapper);
 
 		$(".dialog-close").on("click", function(){
@@ -75,9 +78,6 @@ var Dialog = function(options){
 
 	}
 
-
-
 	that.init();
-
 
 }
