@@ -37,12 +37,14 @@ var Dialog = function(options){
 				$d_foot = $('<div></div>').addClass("dialog-foot"),
 				$titleElem = $('<span></span>').addClass("dialog-title");
 		
-		$titleElem.text(that.title).appendTo($d_head);
+		$titleElem.text(that.title)
+							.appendTo($d_head);
 		$(that.content).appendTo($d_body);
 
 		if (that.yesFunc) {
 			var $yesBtn = $('<button></button>').addClass("dialog-btn");
-			$yesBtn.text(that.yesText).appendTo($d_foot);
+			$yesBtn.text(that.yesText)
+						 .appendTo($d_foot);
 
 			$yesBtn.on("click", function(){
 				yesFunc();
@@ -53,7 +55,8 @@ var Dialog = function(options){
 
 		if (that.noFunc) {
 			var $noBtn = $('<button></button>').addClass("dialog-btn cancel");
-			$noBtn.text(that.noText).appendTo($d_foot);
+			$noBtn.text(that.noText)
+						.appendTo($d_foot);
 
 			$noBtn.on("click", function(){
 				noFunc();
@@ -64,7 +67,7 @@ var Dialog = function(options){
 	
 		
 		$dialog.append($d_head, $d_body, $d_foot).appendTo($wrapper);
-		console.log(options.blur);
+
 		Overlay.appear(that.blur);
 		$("body").append($wrapper);
 
@@ -72,7 +75,7 @@ var Dialog = function(options){
 			removeDialog($(this));
 			Overlay.disappear();
 			if (that.closeFunc) {
-				that.closeFunc();
+				closeFunc();
 			}
 		});
 

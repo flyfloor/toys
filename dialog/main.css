@@ -49,7 +49,7 @@ pre {
 	color: #D32D24;
 	display: inline-block;
 	width: 100%;
-	padding: 20px;
+	padding: 20px 0;
 	font-size: 15px;
 	word-spacing: 5px;
 	letter-spacing: 1px;
@@ -79,7 +79,7 @@ pre {
 .dialog {
 	width: 600px;
 	height: auto;
-	margin: 30px auto;
+	margin: 50px auto;
 	border: 1px solid #f5f5f5;
 	background: #fff;
 	position: relative;
