@@ -3,11 +3,28 @@
 	display: inline-block;
 }*/
 
+* {
+	outline: none;
+}
+
+
 .toobar-item a {
-	color: #886C6C;
+	color: #666 !important;
+	width: 20px;
+	display: inline-block;
+	font-size: 14px;
 }
 
 .separator {
 	border-left: 1px solid #888;
 	padding-right: 10px;
 }
+
+.editor_content {
+	display: inline-block;
+	border: 1px solid #ccc;
+	min-width: 500px;
+	min-height: 300px;
+	padding: 5px;
+}
+
