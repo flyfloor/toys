@@ -26,7 +26,7 @@ var $toolbar = $('<div>'+
 
 
 var Editor = {
-	exec : function(cmd, value){
+	exec : function(cmd, value, element){
 		document.execCommand(cmd, false, null);
 		// console.log(cmd);
 	},
@@ -57,6 +57,7 @@ $.fn.extend({
 
 		$editor_context.on("keypress", function(event){
 			if (event.keyCode == 13) {
+
 	      document.execCommand('formatBlock', false, 'p');
 	    }
 		});
