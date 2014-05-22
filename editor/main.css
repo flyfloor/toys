@@ -1,10 +1,10 @@
-/*.toobar-item li {
-	list-style: none;
-	display: inline-block;
-}*/
-
 * {
 	outline: none;
+}
+
+html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,button,textarea, h1, h2,h3,h4,h5,h6  {
+	margin: 0;
+	padding: 0;
 }
 
 
@@ -26,5 +26,21 @@
 	min-width: 500px;
 	min-height: 300px;
 	padding: 5px;
+}
+
+.editor_content ul, .editor_content ol {
+	margin-left: 20px;
+}
+
+.editor_content li {
+	display: list-item;
+}
+
+.editor_content ul li {
+	list-style-type: disc;
+}
+
+.editor_content ol li {
+	list-style-type: decimal; 
 }
 

@@ -49,18 +49,16 @@ var Editor = {
 $.fn.extend({
 	editor: function(){
 		var $element = $(this);
+
 		$toolbar.find("a[data-action]").on("click", function(){
 			Editor.exec($(this).data("action"), null);
+			$editor_context.focus();
 		});
 
 		$editor_context.on("keypress", function(event){
-			if (event.keyCode === 13) {
-				// document.execCommand('defaultParagraphSeparator', false, 'p');
-				
-				// p.html().getSelection();
-				event.stopPropagation();
-				return false;
-			};
+			if (event.keyCode == 13) {
+	      document.execCommand('formatBlock', false, 'p');
+	    }
 		});
 
 		$element.after($toolbar, $editor_context);
