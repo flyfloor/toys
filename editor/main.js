@@ -18,7 +18,7 @@ var $toolbar = $('<div>'+
 									  '<a href="#" data-action="outdent" class="editor-outdent"><i class="fa fa-outdent" title="Outdent"></i></a> '+
 										'<span class="separator"></span>'+
 									  '<a href="#" data-action="blockquote" class="editor-blq"><i class="fa fa-quote-left" title="Blockquote"></i></a> '+
-									  '<a href="#" data-action="pre" class="editor-pre"><i class="fa fa-code" title="Pre"></i></a> '+
+									  '<a href="#" data-action="pre" class="editor-code"><i class="fa fa-code" title="Code"></i></a> '+
 									  '<a href="#" data-action="createLink" class="editor-link"><i class="fa fa-link" title="Link"></i></a> '+
 									  '<a href="#" data-action="insertimage" class="editor-image"><i class="fa fa-picture-o" title="Image"></i></a>'+
 									  '<a href="#" data-action="undo" class="editor-undo"><i class="fa fa-undo" title="Undo"></i></a>'+
@@ -30,7 +30,11 @@ var $toolbar = $('<div>'+
 
 var Editor = {
 	exec : function(cmd, value, element){
-		document.execCommand(cmd, false, null);
+		if (cmd == "pre" || cmd == "blockquote" || cmd == "h1" || cmd == "h3" || cmd == "p") {
+			document.execCommand("formatBlock", false, cmd);
+		}else {
+			document.execCommand(cmd, false, null);
+		}
 		// console.log(cmd);
 	},
 	available: function(cmd){
@@ -77,28 +81,22 @@ $.fn.extend({
 			$editor_content.focus();
 		});
 
-		var cursorHandler = function(){
-			var nodeName = Editor.presentNode().nodeName.toLowerCase();
-			// Editor.on($('a[data-action="'+nodeName'"]'))
-			// if (node.) {};
-			Editor.state();
-		}
 
 		$editor_content.on("click", function(event){
-			cursorHandler();
+			Editor.state();
 		});
 
 		$editor_content.on("keyup", function(event){
+    	Editor.state();
+
 			var keyCode = event.keyCode;
 			if (keyCode == 13) {
 				var nodeName = Editor.presentNode().nodeName.toLowerCase() || 'p';
-				console.log(nodeName);
 				if (nodeName == "p" || nodeName == "div") {
 					document.execCommand('formatBlock', false, 'p');
 				}
 	    }
 
-    	Editor.state();
 		});
 
 		$element.after($toolbar, $editor_content);
