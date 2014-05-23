@@ -17,12 +17,16 @@ html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,butt
 	box-shadow: 0 1px 1px rgba(0,0,0,0.2);
 }
 
+
+
+
 .toobar-item a {
-	color: #666 !important;
+	text-decoration: none;
+	color: #666;
 	width: 20px;
 	display: inline-block;
 	font-size: 14px;
-	padding-right: 10px;
+	margin-right: 10px;
 }
 
 .separator {
@@ -37,22 +41,14 @@ html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,butt
 	min-height: 300px;
 	padding: 5px;
 	box-shadow: 1px 1px 2px rgba(0,0,0,0.05) inset;
-	color: #362020;
+	color: #555;
 }
 
 .editor_content ul, .editor_content ol {
 	margin-left: 20px;
 }
 
-.editor_content li {
-	display: list-item;
-}
-
-.editor_content ul li {
-	list-style-type: disc;
-}
-
-.editor_content ol li {
-	list-style-type: decimal; 
+.editor-active {
+	color: #E76868 !important;
 }
 
