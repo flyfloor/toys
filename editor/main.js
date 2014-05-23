@@ -25,7 +25,7 @@ var $toolbar = $('<div>'+
 									'</div>').addClass("toobar-item"),
 	$editor_content = $("<div></div>").addClass("editor_content")
 																 .attr("contentEditable", true),
-	Cmd_items = ['bold', 'italic', 'underline', 'strikethrough', 'insertunorderedlist', 'insertorderedlist', 'blockquote', 'pre'];
+	cmd_items = ['bold', 'italic', 'underline', 'strikethrough', 'insertunorderedlist', 'insertorderedlist', 'blockquote', 'pre'];
 
 
 var Editor = {
@@ -44,8 +44,22 @@ var Editor = {
 
 		return node;		
 	},
-	getSelection : function(content){
-		// for(var i in )
+	on: function($element){
+		$element.addClass("editor-active");
+	},
+
+	off: function($element){
+		$element.removeClass("editor-active")
+	},
+	state : function(content){
+		$toolbar.find("a").each(function(){
+			Editor.off($(this));
+		});
+		for(var i in cmd_items){
+			if (Editor.available(cmd_items[i])) {
+				Editor.on($toolbar.find('a[data-action="'+cmd_items[i]+'"]'));
+			}
+		}
 		if (content) {};
 	}
 }
@@ -58,9 +72,7 @@ $.fn.extend({
 			var action = $(this).data("action");
 			Editor.exec(action, null);
 
-			if (Editor.available(action)) {
-
-			}
+			Editor.state($editor_content);
 			
 			$editor_content.focus();
 		});
@@ -69,6 +81,7 @@ $.fn.extend({
 			var nodeName = Editor.presentNode().nodeName.toLowerCase();
 			// Editor.on($('a[data-action="'+nodeName'"]'))
 			// if (node.) {};
+			Editor.state($editor_content);
 		}
 
 		$editor_content.on("click", function(event){
