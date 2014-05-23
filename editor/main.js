@@ -51,7 +51,7 @@ var Editor = {
 	off: function($element){
 		$element.removeClass("editor-active")
 	},
-	state : function(content){
+	state : function(){
 		$toolbar.find("a").each(function(){
 			Editor.off($(this));
 		});
@@ -60,7 +60,7 @@ var Editor = {
 				Editor.on($toolbar.find('a[data-action="'+cmd_items[i]+'"]'));
 			}
 		}
-		if (content) {};
+
 	}
 }
 
@@ -72,7 +72,7 @@ $.fn.extend({
 			var action = $(this).data("action");
 			Editor.exec(action, null);
 
-			Editor.state($editor_content);
+			Editor.state();
 			
 			$editor_content.focus();
 		});
@@ -81,7 +81,7 @@ $.fn.extend({
 			var nodeName = Editor.presentNode().nodeName.toLowerCase();
 			// Editor.on($('a[data-action="'+nodeName'"]'))
 			// if (node.) {};
-			Editor.state($editor_content);
+			Editor.state();
 		}
 
 		$editor_content.on("click", function(event){
@@ -89,13 +89,16 @@ $.fn.extend({
 		});
 
 		$editor_content.on("keyup", function(event){
-			if (event.keyCode == 13) {
+			var keyCode = event.keyCode;
+			if (keyCode == 13) {
 				var nodeName = Editor.presentNode().nodeName.toLowerCase() || 'p';
 				console.log(nodeName);
 				if (nodeName == "p" || nodeName == "div") {
 					document.execCommand('formatBlock', false, 'p');
 				}
 	    }
+
+    	Editor.state();
 		});
 
 		$element.after($toolbar, $editor_content);

@@ -8,7 +8,7 @@ html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,butt
 }
 
 .toobar-item {
-	padding: 5px 0 5px 10px;
+	padding: 5px 10px;
 	background: #eee;
 	width: 720px;
 	display: inline-block;
@@ -39,9 +39,13 @@ html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,butt
 	border: 1px solid #ccc;
 	width: 720px;
 	min-height: 300px;
-	padding: 5px;
+	padding: 10px;
 	box-shadow: 1px 1px 2px rgba(0,0,0,0.05) inset;
 	color: #555;
+}
+
+.editor_content:hover {
+	cursor: text;
 }
 
 .editor_content ul, .editor_content ol {
