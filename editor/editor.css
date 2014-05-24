@@ -34,7 +34,7 @@ html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,butt
 	padding-right: 10px;
 }
 
-.editor_content {
+.editor-content {
 	display: inline-block;
 	border: 1px solid #ccc;
 	width: 720px;
@@ -44,13 +44,29 @@ html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,butt
 	color: #555;
 }
 
-.editor_content:hover {
+.editor-content:hover {
 	cursor: text;
 }
 
-.editor_content ul, .editor_content ol {
+
+.editor-content ul, .editor-content ol {
 	margin-left: 20px;
 }
+
+.editor-content pre {
+	padding: 10px;
+	color: #C03C51;
+	background: rgba(100, 100, 100, 0.1);
+	margin: 10px;
+	overflow: scroll;
+}
+
+.editor-content blockquote {
+	margin: 10px 10px 10px 20px;
+	padding: 10px;
+	border-left: 5px solid #eee;
+}
+
 
 .editor-active {
 	color: #65D88E !important;
