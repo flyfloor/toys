@@ -42,14 +42,18 @@ var Editor = {
 	available: function(cmd){
 		return document.queryCommandState(cmd) === true
 	},
-	containerName: function(){
+	container: function(){
 		var node =	window.getSelection().anchorNode;
 		if (node.nodeType === 3) {
 			node = node.parentNode;
 		};
 
-		return node.nodeName.toLowerCase();		
+		return node;
 	},
+	containerName: function(){
+		return Editor.container().nodeName.toLowerCase();		
+	},
+
 	on: function($element){
 		$element.addClass("editor-active");
 	},
@@ -72,6 +76,7 @@ var Editor = {
 
 $.fn.extend({
 	editor: function(){
+		$textArea = $(this);
 
 		$editor_content.focus();
 		$toolbar.find("a[data-action]").on("click", function(){
@@ -88,20 +93,28 @@ $.fn.extend({
 			Editor.state();
 		});
 
-		$editor_content.on("keyup", function(event){
+		$editor_content.on("keydown", function(event){
     	Editor.state();
 
 			if (event.keyCode == 13) {
 				var nodeName = Editor.containerName() || 'p';
+					console.log(nodeName);
 				if (nodeName == "p" || nodeName == "div") {
-					document.execCommand('formatBlock', false, 'p');
+	        document.execCommand("formatBlock",false,"P");
+				}else if(nodeName == "blockquote" || nodeName == "pre"){
+					event.stopPropagation();
+					console.log(Editor.container());
+	        document.execCommand("insertParagraph",false, null);
+	        document.execCommand("formatBlock",false, "P");
+	        document.execCommand("outdent", false);
+	        return false;
 				}
 	    }
 
 		});
 
 		$editor_content.on("input", function(){
-			$(this).val($editor_content.html());
+			$textArea.val($editor_content.html());
 		});
 
 		$(this).after($editor);
