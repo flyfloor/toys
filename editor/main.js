@@ -31,15 +31,18 @@ var $editor = $("<div>").addClass("editor"),
 
 
 var Editor = {
-	exec : function(cmd, value, element){
-		if (cmd == "pre" || cmd == "blockquote" || cmd == "h1" || cmd == "h3" || cmd == "h5" || cmd == "p") {
+	exec : function(cmd){
+		if(cmd == "pre" || cmd == "blockquote" || cmd == "h1" || cmd == "h3" || cmd == "h5" || cmd == "p") {
 			document.execCommand("formatBlock", false, cmd);
 		}else {
 			document.execCommand(cmd, false, null);
 		}
 		// console.log(cmd);
 	},
-	available: function(cmd){
+	support: function(cmd){
+		return document.queryCommandSupported(cmd);
+	},
+	state: function(cmd){
 		return document.queryCommandState(cmd) === true
 	},
 	container: function(){
@@ -50,8 +53,8 @@ var Editor = {
 
 		return node;
 	},
-	containerName: function(){
-		return Editor.container().nodeName.toLowerCase();		
+	nodeName: function(node){
+		return node.nodeName.toLowerCase();		
 	},
 
 	on: function($element){
@@ -61,53 +64,63 @@ var Editor = {
 	off: function($element){
 		$element.removeClass("editor-active")
 	},
-	state : function(){
+	select : function(){
 		$toolbar.find("a").each(function(){
 			Editor.off($(this));
 		});
 		for(var i in select_items){
-			if (Editor.available(select_items[i])) {
+			if (Editor.state(select_items[i])) {
 				Editor.on($toolbar.find('a[data-action="'+select_items[i]+'"]'));
 			}
 		}
 	}
-
 }
+
 
 $.fn.extend({
 	editor: function(){
+		var mozilla = Editor.support("insertBrOnReturn");
 		$textArea = $(this);
 
 		$editor_content.focus();
 		$toolbar.find("a[data-action]").on("click", function(){
 			var action = $(this).data("action");
-			Editor.exec(action, null);
+			Editor.exec(action);
 
-			Editor.state();
+			Editor.select();
 			
 			$editor_content.focus();
 		});
 
-
 		$editor_content.on("click", function(event){
-			Editor.state();
+			Editor.select();
 		});
 
 		$editor_content.on("keydown", function(event){
-    	Editor.state();
+    	Editor.select();
 
 			if (event.keyCode == 13) {
-				var nodeName = Editor.containerName() || 'p';
-					console.log(nodeName);
-				if (nodeName == "p" || nodeName == "div") {
-	        document.execCommand("formatBlock",false,"P");
-				}else if(nodeName == "blockquote" || nodeName == "pre"){
+				var container = Editor.container(),
+						nodeName = Editor.nodeName(container);
+				if (nodeName == "div") {
+					nodeName = "p";
+				}
+
+				if (nodeName == "blockquote" || nodeName == "pre" || Editor.nodeName(container.parentNode) == "blockquote") {
 					event.stopPropagation();
-					console.log(Editor.container());
-	        document.execCommand("insertParagraph",false, null);
-	        document.execCommand("formatBlock",false, "P");
-	        document.execCommand("outdent", false);
-	        return false;
+
+					//Mozilla insertParagraph problem
+					if (mozilla) {
+						document.execCommand("insertHTML", false, "<p></p>");
+					}else {
+						console.log("shit");
+						document.execCommand("insertParagraph", false);
+						document.execCommand("formatBlock", false, "p");
+					}
+					document.execCommand("outdent", false);
+					return false;
+				}else {
+        	Editor.exec(nodeName);
 				}
 	    }
 
