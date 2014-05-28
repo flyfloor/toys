@@ -27,7 +27,8 @@ var $editor = $("<div>").addClass("editor"),
 									'</div>').addClass("toobar-item"),
 	$editor_content = $("<div></div>").addClass("editor-content").attr("contentEditable", true),
 	select_items = ['bold', 'italic', 'underline', 'strikethrough', 'insertunorderedlist', 'insertorderedlist'],
-	$hintMsg = $("<span></span>").addClass("editor-hint").text("shift+enter在元素内换行");
+	$hintMsg = $("<span></span>").addClass("editor-hint").text("shift+enter在元素内换行"),
+	$placeHolder = $("<p></p>").addClass("editor-pholder");
 
 
 var Editor = {
@@ -87,10 +88,16 @@ $.fn.extend({
 					nodeName = Editor.nodeName(node);
 					action = $(this).data("action");
 
-			//mozilla blockquote nested
-			if (mozilla & action == "blockquote" & (nodeName == "blockquote" || $(node).parents("blockquote").length)) {
-				$editor_content.focus();
-				return false;
+			if (mozilla){
+				//mozilla blockquote nested
+				if (action == "blockquote" & nodeName == "blockquote" || $(node).parents("blockquote").length) {
+					$editor_content.focus();
+					return false;
+				}
+				if (action == "indent" || action == "outdent") {
+					document.execCommand("styleWithCSS", false);
+				}
+
 			}
 
 			Editor.exec(action);
@@ -114,7 +121,6 @@ $.fn.extend({
 				
 				if (nodeName == "blockquote" || nodeName == "pre" || parentName == "blockquote") {
 					event.stopPropagation();
-
 					//mozilla insertParagraph problem
 					if (mozilla) {
 						document.execCommand("insertHTML", false, "<p></p>");
@@ -137,6 +143,7 @@ $.fn.extend({
 		});
 
 		$(this).after($editor);
+		$placeHolder.appendTo($editor_content);
 		$editor.append($toolbar, $editor_content);
 	}
 });
