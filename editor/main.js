@@ -99,7 +99,7 @@ $.fn.extend({
 		$editor_content.on("keydown", function(event){
     	Editor.select();
 
-			if (event.keyCode == 13) {
+			if (event.keyCode == 13 & !event.shiftKey) {
 				var container = Editor.container(),
 						nodeName = Editor.nodeName(container);
 				if (nodeName == "div") {
@@ -114,7 +114,8 @@ $.fn.extend({
 						document.execCommand("insertHTML", false, "<p></p>");
 					}else {
 						console.log("shit");
-						document.execCommand("insertParagraph", false);
+						document.execCommand("insertParagraph", false, null);
+						document.execCommand("outdent", false);
 						document.execCommand("formatBlock", false, "p");
 					}
 					document.execCommand("outdent", false);
