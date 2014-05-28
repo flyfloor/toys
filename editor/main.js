@@ -161,7 +161,7 @@ $.fn.extend({
 		});
 
 		$(this).after($editor);
-		$placeHolder.appendTo($editor_content);
+		// $placeHolder.appendTo($editor_content);
 		$editor.append($toolbar, $editor_content);
 	}
 });
