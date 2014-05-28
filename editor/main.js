@@ -22,7 +22,7 @@ var $editor = $("<div>").addClass("editor"),
 									  '<a href="#" data-action="blockquote" class="editor-blq"><i class="fa fa-quote-left" title="Blockquote"></i></a> '+
 									  '<a href="#" data-action="pre" class="editor-code"><i class="fa fa-code" title="Code"></i></a> '+
 									  '<a href="#" data-action="createLink" class="editor-link"><i class="fa fa-link" title="Link"></i></a> '+
-									  '<a href="#" data-action="insertimage" class="editor-image"><i class="fa fa-picture-o" title="Image"></i></a>'+
+									  '<a href="#" data-action="insertImage" class="editor-image"><i class="fa fa-picture-o" title="Image"></i></a>'+
 									  '<a href="#" data-action="undo" class="editor-undo"><i class="fa fa-undo" title="Undo"></i></a>'+
 									'</div>').addClass("toobar-item"),
 	$editor_content = $("<div></div>").addClass("editor-content").attr("contentEditable", true),
@@ -36,7 +36,21 @@ var Editor = {
 		if(cmd == "pre" || cmd == "blockquote" || cmd == "h1" || cmd == "h3" || cmd == "h5" || cmd == "p") {
 			document.execCommand("formatBlock", false, cmd);
 		}else {
-			document.execCommand(cmd, false, null);
+			var aVal = null; 
+			//simpler way to handle img and link insert
+			if (cmd == "insertImage" || cmd == "createLink") {
+				if (cmd == "createLink") {
+					aVal = prompt("链接地址");
+				}else{
+					aVal = prompt("图片地址:");
+				}
+
+				if (!aVal || aVal.trim().length == 0) {
+					return false;
+				}
+			}
+
+			document.execCommand(cmd, false, aVal);
 		}
 	},
 	support: function(cmd){
