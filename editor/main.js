@@ -111,28 +111,32 @@ $.fn.extend({
 
 		$editor_content.on("keydown", function(event){
     	Editor.select();
-    	var nodeName = Editor.nodeName(Editor.container()),
+    	var type = Editor.nodeName(Editor.container()),
 					parentName = Editor.nodeName(Editor.container().parentNode);
 
+			//mozilla insertParagraph problem
+			function mozillaEnterHandler(){
+				document.execCommand("insertHTML", false, "<p></p>");
+				document.execCommand("outdent", false);
+			}
+
 			if (event.keyCode == 13 & !event.shiftKey) {
-				if (nodeName == "div") {
-					nodeName = "p";
+				if (type == "div") {
+					type = "p";
 				}
 				
-				if (nodeName == "blockquote" || nodeName == "pre" || parentName == "blockquote") {
+				if (type == "blockquote" || type == "pre" || type == "blockquote" || type == "p") {
 					event.stopPropagation();
-					//mozilla insertParagraph problem
 					if (mozilla) {
-						document.execCommand("insertHTML", false, "<p></p>");
-					}else {
+						mozillaEnterHandler();
+					}else{
 						document.execCommand("insertParagraph", false, null);
 						document.execCommand("outdent", false);
 						document.execCommand("formatBlock", false, "p");
 					}
-					document.execCommand("outdent", false);
 					return false;
 				}else {
-        	Editor.exec(nodeName);
+        	Editor.exec(type);
 				}
 	    }
 
