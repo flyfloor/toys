@@ -37,7 +37,6 @@ var Editor = {
 		}else {
 			document.execCommand(cmd, false, null);
 		}
-		// console.log(cmd);
 	},
 	support: function(cmd){
 		return document.queryCommandSupported(cmd);
@@ -79,16 +78,23 @@ var Editor = {
 
 $.fn.extend({
 	editor: function(){
-		var mozilla = Editor.support("insertBrOnReturn");
-		$textArea = $(this);
+		var mozilla = Editor.support("insertBrOnReturn"),
+				$textArea = $(this);
 
 		$editor_content.focus();
 		$toolbar.find("a[data-action]").on("click", function(){
-			var action = $(this).data("action");
-			Editor.exec(action);
+			var node = Editor.container(),
+					nodeName = Editor.nodeName(node);
+					action = $(this).data("action");
 
-			Editor.select();
-			
+			//mozilla blockquote nested
+			if (mozilla & action == "blockquote" & (nodeName == "blockquote" || $(node).parents("blockquote").length)) {
+				$editor_content.focus();
+				return false;
+			}
+
+			Editor.exec(action);
+			Editor.select();			
 			$editor_content.focus();
 		});
 
@@ -98,22 +104,21 @@ $.fn.extend({
 
 		$editor_content.on("keydown", function(event){
     	Editor.select();
+    	var nodeName = Editor.nodeName(Editor.container()),
+					parentName = Editor.nodeName(Editor.container().parentNode);
 
 			if (event.keyCode == 13 & !event.shiftKey) {
-				var container = Editor.container(),
-						nodeName = Editor.nodeName(container);
 				if (nodeName == "div") {
 					nodeName = "p";
 				}
-
-				if (nodeName == "blockquote" || nodeName == "pre" || Editor.nodeName(container.parentNode) == "blockquote") {
+				
+				if (nodeName == "blockquote" || nodeName == "pre" || parentName == "blockquote") {
 					event.stopPropagation();
 
-					//Mozilla insertParagraph problem
+					//mozilla insertParagraph problem
 					if (mozilla) {
 						document.execCommand("insertHTML", false, "<p></p>");
 					}else {
-						console.log("shit");
 						document.execCommand("insertParagraph", false, null);
 						document.execCommand("outdent", false);
 						document.execCommand("formatBlock", false, "p");
