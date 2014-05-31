@@ -35,7 +35,7 @@ html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,butt
 }
 
 .editor-content {
-	display: inline-block;
+	display: block;
 	border: 1px solid #ccc;
 	width: 720px;
 	min-height: 300px;
@@ -74,4 +74,10 @@ html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,butt
 .editor-active {
 	color: #65D88E !important;
 }
+
+.editor-pholder {
+	font-size: 14px;
+	font-style: italic;
+}
+
 
