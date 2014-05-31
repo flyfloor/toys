@@ -1,24 +1,24 @@
 var $editor = $("<div>").addClass("editor"),
 	$toolbar = $('<div>'+
-										'<a href="#" data-action="bold" class="editor-bold"><i class="fa fa-bold" title="Bold"></i></a>'+
-										'<a href="#" data-action="italic" class="editor-italic"><i class="fa fa-italic" title="Italic"></i></a>'+
-										'<a href="#" data-action="underline" class="editor-underline"><i class="fa fa-underline" title="Underline"></i></a>'+
-										'<a href="#" data-action="strikethrough" class="editor-strikethrough"><i class="fa fa-strikethrough" title="Strikethrough"></i></a>'+
+										'<a href="javascript:void(0);" data-action="bold" class="editor-bold"><i class="fa fa-bold" title="Bold"></i></a>'+
+										'<a href="javascript:void(0);" data-action="italic" class="editor-italic"><i class="fa fa-italic" title="Italic"></i></a>'+
+										'<a href="javascript:void(0);" data-action="underline" class="editor-underline"><i class="fa fa-underline" title="Underline"></i></a>'+
+										'<a href="javascript:void(0);" data-action="strikethrough" class="editor-strikethrough"><i class="fa fa-strikethrough" title="Strikethrough"></i></a>'+
 										'<span class="separator"></span>'+
-										'<a href="#" data-action="h1" class="editor-h1"><strong style="font-size:16px;">h1</strong></a>'+
-										'<a href="#" data-action="h3" class="editor-h3"><strong>h3</strong></a>'+
-										'<a href="#" data-action="h5" class="editor-h5"><strong style="font-size:14px;">h5</strong></a>'+
-										'<a href="#" data-action="p" class="editor-p"><span>P</span></a>'+
-										'<a href="#" data-action="insertorderedlist" class="editor-ol"><i class="fa fa-list-ol" title="Ordered list"></i></a> '+
-									  '<a href="#" data-action="insertunorderedlist" class="editor-ul"><i class="fa fa-list-ul" title="Unordered list"></i></a> '+
-									  '<a href="#" data-action="indent" class="editor-indent"><i class="fa fa-indent" title="Indent"></i></a> '+
-									  '<a href="#" data-action="outdent" class="editor-outdent"><i class="fa fa-outdent" title="Outdent"></i></a> '+
+										'<a href="javascript:void(0);" data-action="h1" class="editor-h1"><strong style="font-size:16px;">h1</strong></a>'+
+										'<a href="javascript:void(0);" data-action="h3" class="editor-h3"><strong>h3</strong></a>'+
+										'<a href="javascript:void(0);" data-action="h5" class="editor-h5"><strong style="font-size:14px;">h5</strong></a>'+
+										'<a href="javascript:void(0);" data-action="p" class="editor-p"><span>P</span></a>'+
+										'<a href="javascript:void(0);" data-action="insertorderedlist" class="editor-ol"><i class="fa fa-list-ol" title="Ordered list"></i></a> '+
+									  '<a href="javascript:void(0);" data-action="insertunorderedlist" class="editor-ul"><i class="fa fa-list-ul" title="Unordered list"></i></a> '+
+									  '<a href="javascript:void(0);" data-action="indent" class="editor-indent"><i class="fa fa-indent" title="Indent"></i></a> '+
+									  '<a href="javascript:void(0);" data-action="outdent" class="editor-outdent"><i class="fa fa-outdent" title="Outdent"></i></a> '+
 										'<span class="separator"></span>'+
-									  '<a href="#" data-action="blockquote" class="editor-blq"><i class="fa fa-quote-left" title="Blockquote"></i></a> '+
-									  '<a href="#" data-action="pre" class="editor-code"><i class="fa fa-code" title="Code"></i></a> '+
-									  '<a href="#" data-action="createLink" class="editor-link"><i class="fa fa-link" title="Link"></i></a> '+
-									  '<a href="#" data-action="insertImage" class="editor-image"><i class="fa fa-picture-o" title="Image"></i></a>'+
-									  '<a href="#" data-action="undo" class="editor-undo"><i class="fa fa-undo" title="Undo"></i></a>'+
+									  '<a href="javascript:void(0);" data-action="blockquote" class="editor-blq"><i class="fa fa-quote-left" title="Blockquote"></i></a> '+
+									  '<a href="javascript:void(0);" data-action="pre" class="editor-code"><i class="fa fa-code" title="Code"></i></a> '+
+									  '<a href="javascript:void(0);" data-action="createLink" class="editor-link"><i class="fa fa-link" title="Link"></i></a> '+
+									  '<a href="javascript:void(0);" data-action="insertImage" class="editor-image"><i class="fa fa-picture-o" title="Image"></i></a>'+
+									  '<a href="javascript:void(0);" data-action="undo" class="editor-undo"><i class="fa fa-undo" title="Undo"></i></a>'+
 									'</div>').addClass("toobar-item"),
 	$editor_content = $("<div></div>").addClass("editor-content").attr("contentEditable", true),
 	select_items = ['bold', 'italic', 'underline', 'strikethrough', 'insertunorderedlist', 'insertorderedlist'],
@@ -134,8 +134,8 @@ $.fn.extend({
 
 		$editor_content.keydown(function(event){
     	Editor.select();
-    	var type = Editor.nodeName(Editor.container()),
-					parentName = Editor.nodeName(Editor.container().parentNode);
+    	var	currentNode = Editor.container(),
+    			type = Editor.nodeName(currentNode);
 
 			//mozilla insertParagraph problem
 			function mozillaEnterHandler(){
@@ -148,7 +148,7 @@ $.fn.extend({
 					type = "p";
 				}
 				
-				if (type == "blockquote" || type == "pre" || type == "blockquote" || type == "p") {
+				if (type == "blockquote" || type == "pre" || $(currentNode).parents("blockquote").length || $(currentNode).parents("pre").length) {
 					event.stopPropagation();
 					if (mozilla) {
 						mozillaEnterHandler();
