@@ -106,14 +106,15 @@ $.fn.extend({
 
 		// $editor_content.focus();
 		$toolbar.find("a[data-action]").click(function(){
+			$editor_content.focus();
 			var node = Editor.container(),
 					nodeName = Editor.nodeName(node);
 					action = $(this).data("action");
 
 			if (mozilla){
 				//mozilla blockquote nested
-				if (action == "blockquote" & nodeName == "blockquote" || $(node).parents("blockquote").length) {
-					$editor_content.focus();
+				if (action == "blockquote" & (nodeName == "blockquote" || $(node).parents("blockquote").length)) {
+					// $editor_content.focus();
 					return false;
 				}
 				if (action == "indent" || action == "outdent") {
