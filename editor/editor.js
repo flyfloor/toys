@@ -22,7 +22,6 @@ var $editor = $("<div>").addClass("editor"),
 									'</div>').addClass("toobar-item"),
 	$editor_content = $("<div></div>").addClass("editor-content").attr("contentEditable", true),
 	select_items = ['bold', 'italic', 'underline', 'strikethrough', 'insertunorderedlist', 'insertorderedlist'],
-	$hintMsg = $("<span></span>").addClass("editor-hint").text("shift+enter在元素内换行"),
 	$placeHolder = $("<p>输入内容...</p>").addClass("editor-pholder");
 
 
@@ -39,7 +38,6 @@ var Editor = {
 				}else{
 					aVal = prompt("图片地址:");
 				}
-
 				if (!aVal || aVal.trim().length == 0) {
 					return false;
 				}
@@ -48,12 +46,17 @@ var Editor = {
 			document.execCommand(cmd, false, aVal);
 		}
 	},
+	//command whether been supported
 	support: function(cmd){
 		return document.queryCommandSupported(cmd);
 	},
+
+	//command state for trigger
 	state: function(cmd){
 		return document.queryCommandState(cmd) === true
 	},
+
+	//current container node 
 	container: function(){
 		var node =	window.getSelection().anchorNode;
 		if (node.nodeType === 3) {
@@ -62,17 +65,23 @@ var Editor = {
 
 		return node;
 	},
+
+	// short for method to get node name
 	nodeName: function(node){
 		return node.nodeName.toLowerCase();		
 	},
 
+	// short for active state, use as native
 	on: function($element){
 		$element.addClass("editor-active");
 	},
 
+	// short for off state, use as native
 	off: function($element){
 		$element.removeClass("editor-active")
 	},
+
+	// make selection state
 	select : function(){
 		$toolbar.find("a").each(function(){
 			Editor.off($(this));
@@ -91,33 +100,35 @@ $.fn.extend({
 		var mozilla = Editor.support("insertBrOnReturn"),
 				$textArea = $(this);
 
+		//initialize value of content view
 		$editor_content.html($textArea.val());
 		if (!$textArea.val()) {
 			$editor_content.append($placeHolder);
 		}
 
+		//placeHolder
 		$editor_content.on("focus", function(){
 			$placeHolder.remove();
-			// $(this).focus();
 		}).on("blur", function(){
 			if(!$(this).html()){
 				$editor_content.append($placeHolder);
 			}
-		});
+		})
 
-		// $editor_content.focus();
+		//toolbar click handler
 		$toolbar.find("a[data-action]").click(function(){
 			$editor_content.focus();
 			var node = Editor.container(),
 					nodeName = Editor.nodeName(node);
 					action = $(this).data("action");
 
+			//mozilla wrap problem
 			if (mozilla){
 				//mozilla blockquote nested
 				if (action == "blockquote" & (nodeName == "blockquote" || $(node).parents("blockquote").length)) {
-					// $editor_content.focus();
 					return false;
 				}
+
 				if (action == "indent" || action == "outdent") {
 					document.execCommand("styleWithCSS", false);
 				}
@@ -129,30 +140,25 @@ $.fn.extend({
 			$editor_content.focus();
 		});
 
+		//judge the toolbar item's selection state
 		$editor_content.click(function(event){
 			Editor.select();
 		});
 
+		//editor content keypress handler, specially Enter key press
 		$editor_content.keydown(function(event){
     	Editor.select();
     	var	currentNode = Editor.container(),
     			type = Editor.nodeName(currentNode);
 
-			//mozilla insertParagraph problem
-			function mozillaEnterHandler(){
-				document.execCommand("insertHTML", false, "<p></p>");
-				document.execCommand("outdent", false);
-			}
-
 			if (event.keyCode == 13 & !event.shiftKey) {
-				if (type == "div") {
-					type = "p";
-				}
-				
+				if(type == "div") type = "p";		
 				if (type == "blockquote" || type == "pre" || $(currentNode).parents("blockquote").length || $(currentNode).parents("pre").length) {
 					event.stopPropagation();
 					if (mozilla) {
-						mozillaEnterHandler();
+						//mozilla insertParagraph problem
+						document.execCommand("insertHTML", false, "<p></p>");
+						document.execCommand("outdent", false);
 					}else{
 						document.execCommand("insertParagraph", false, null);
 						document.execCommand("outdent", false);
@@ -166,12 +172,13 @@ $.fn.extend({
 
 		});
 
+		//textarea val change with editor's content change
 		$editor_content.on("input", function(){
 			$textArea.val($editor_content.html());
 		});
 
+		//add editor near after textarea
 		$(this).after($editor);
-		// $placeHolder.appendTo($editor_content);
 		$editor.append($toolbar, $editor_content);
 	}
 });
