@@ -1,6 +1,4 @@
 ::-webkit-input-placeholder { color:#797; font-style: italic;  font-weight: lighter;}
-::-moz-placeholder { color:#797; font-style: italic;  font-weight: lighter;}
-input:-moz-placeholder{ color:#797; font-style: italic;  font-weight: lighter;}
 
 html, body, section {
 	border: none;
@@ -8,6 +6,9 @@ html, body, section {
 
 html {
 	background: -webkit-linear-gradient(top left, #1fa670, #1fa67a);
+	display: inherit;
+	width: 100%;
+	height: 100%;
 }
 
 ul li {
