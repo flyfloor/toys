@@ -98,6 +98,7 @@ $.fn.extend({
 
 		$editor_content.on("focus", function(){
 			$placeHolder.remove();
+			// $(this).focus();
 		}).on("blur", function(){
 			if(!$(this).html()){
 				$editor_content.append($placeHolder);
