@@ -77,12 +77,21 @@ var ValidForm = function($form){
 		}
 	});
 
-	$form.find(".required").on("blur", function(){
+	$form.find("input").on("input", function(){
+		console.log(validEmail() && validPassword() && validNickname());
 		if (validEmail() && validPassword() && validNickname()) {
 			$(":submit").removeClass("disabled");
 		}else{
 			$(":submit").addClass("disabled");
 		}
+	})
+
+	$form.find(".required").on("blur", function(){
+		// if (validEmail() && validPassword() && validNickname()) {
+		// 	$(":submit").removeClass("disabled");
+		// }else{
+		// 	$(":submit").addClass("disabled");
+		// }
 		if (!Validator.required($(this).val())) {
 			Validator.errorDisplay($(this), validError.requiredMsg);
 		}else{
