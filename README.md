@@ -5,28 +5,31 @@ Always do something fun & use chrome for ensure
 
 ###Here are some toys with fully love
 
-+ slide
+1. slide
 
 a slide show of cards, Big Game of thrones fan
 
-+ dialog
+2. dialog
 
 simple dialog 
 
-+ automatch
+3. automatch
 
 a spotlight with match word highlight
 
-- node.js fetch data
+  - node.js fetch data
+  
+  - fixed a box-shadow problem under safari, but forgot how.
 
-+ editor
+
+4. editor
 
 HTML5 WYSIWYG editor, nice to chrome & safari, fixed some bugs under firefox
 
-+ validator
+5. validator
 
 a form for signup, get a glance from friend's rep.
 
-+ parallax scrolling
+6. parallax scrolling
 
 know as named, also Game of thrones ~_~ !!!
