@@ -23,11 +23,16 @@ var $editor = $("<div>").addClass("editor"),
 	$editor_content = $("<div></div>").addClass("editor-content").attr("contentEditable", true),
 	select_items = ['bold', 'italic', 'underline', 'strikethrough', 'insertunorderedlist', 'insertorderedlist'],
 	$placeHolder = $("<p>输入内容...</p>").addClass("editor-pholder");
-
+			
 
 var Editor = {
+	mozilla: function(){return this.support("contentReadOnly")},
+	microsoft: function(){return this.support("editMode");},
 	exec : function(cmd){
 		if(cmd == "pre" || cmd == "blockquote" || cmd == "h1" || cmd == "h3" || cmd == "h5" || cmd == "p") {
+			if (this.microsoft()) {
+				cmd = "<" + cmd + ">";
+			}
 			document.execCommand("formatBlock", false, cmd);
 		}else {
 			var aVal = null; 
@@ -97,8 +102,7 @@ var Editor = {
 
 $.fn.extend({
 	editor: function(){
-		var mozilla = Editor.support("insertBrOnReturn"),
-				$textArea = $(this);
+		var $textArea = $(this);
 
 		//initialize value of content view
 		$editor_content.html($textArea.val());
@@ -123,7 +127,7 @@ $.fn.extend({
 					action = $(this).data("action");
 
 			//mozilla wrap problem
-			if (mozilla){
+			if (Editor.mozilla()){
 				//mozilla blockquote nested
 				if (action == "blockquote" & (nodeName == "blockquote" || $(node).parents("blockquote").length)) {
 					return false;
@@ -132,7 +136,6 @@ $.fn.extend({
 				if (action == "indent" || action == "outdent") {
 					document.execCommand("styleWithCSS", false);
 				}
-
 			}
 
 			Editor.exec(action);
@@ -152,15 +155,15 @@ $.fn.extend({
     			type = Editor.nodeName(currentNode);
 
 			if (event.keyCode == 13 & !event.shiftKey) {
-				if(type == "div") type = "p";		
+				if(type == "div") type = "p";
 				if (type == "blockquote" || type == "pre" || $(currentNode).parents("blockquote").length || $(currentNode).parents("pre").length) {
 					event.stopPropagation();
-					if (mozilla) {
+					if (Editor.mozilla()) {
 						//mozilla insertParagraph problem
 						document.execCommand("insertHTML", false, "<p></p>");
 						document.execCommand("outdent", false);
 					}else{
-						document.execCommand("insertParagraph", false, null);
+						document.execCommand("insertParagraph", false, "p");
 						document.execCommand("outdent", false);
 						document.execCommand("formatBlock", false, "p");
 					}
