@@ -19,38 +19,47 @@ var $editor = $("<div>").addClass("editor"),
 									  '<a href="javascript:void(0);" data-action="createLink" class="editor-link"><i class="fa fa-link" title="Link"></i></a> '+
 									  '<a href="javascript:void(0);" data-action="insertImage" class="editor-image"><i class="fa fa-picture-o" title="Image"></i></a>'+
 									  '<a href="javascript:void(0);" data-action="undo" class="editor-undo"><i class="fa fa-undo" title="Undo"></i></a>'+
-									'</div>').addClass("toobar-item"),
+									'</div>').addClass("toolbar-item"),
 	$editor_content = $("<div></div>").addClass("editor-content").attr("contentEditable", true),
 	select_items = ['bold', 'italic', 'underline', 'strikethrough', 'insertunorderedlist', 'insertorderedlist'],
-	$placeHolder = $("<p>输入内容...</p>").addClass("editor-pholder");
+	$placeHolder = $("<p>输入内容...</p>").addClass("editor-pholder"),
+	formatCmds = ['pre', 'blockquote', 'h1', 'h3', 'h5', 'p'];
 			
 
 var Editor = {
 	mozilla: function(){return this.support("contentReadOnly")},
 	microsoft: function(){return this.support("editMode");},
 	exec : function(cmd){
-		if(cmd == "pre" || cmd == "blockquote" || cmd == "h1" || cmd == "h3" || cmd == "h5" || cmd == "p") {
-			if (this.microsoft()) {
-				cmd = "<" + cmd + ">";
+		var tag = false;
+		for(var i in formatCmds){
+			if (cmd === formatCmds[i]) {
+				tag = true;
+				if (this.microsoft())  cmd = "<" + cmd + ">";
+				document.execCommand("formatBlock", false, cmd);
+				break;
+			}else{
+				continue;
 			}
-			document.execCommand("formatBlock", false, cmd);
-		}else {
+		}
+
+		if (!tag) {
 			var aVal = null; 
 			//simpler way to handle img and link insert
-			if (cmd == "insertImage" || cmd == "createLink") {
-				if (cmd == "createLink") {
+			if (cmd === "createLink" || cmd === "insertImage") {
+				if (cmd === "createLink") {
 					aVal = prompt("链接地址");
-				}else{
+				}else {
 					aVal = prompt("图片地址:");
 				}
+
 				if (!aVal || aVal.trim().length == 0) {
 					return false;
 				}
 			}
-
 			document.execCommand(cmd, false, aVal);
 		}
 	},
+
 	//command whether been supported
 	support: function(cmd){
 		return document.queryCommandSupported(cmd);
@@ -78,12 +87,12 @@ var Editor = {
 
 	// short for active state, use as native
 	on: function($element){
-		$element.addClass("editor-active");
+		$element.addClass("toolbar-active");
 	},
 
 	// short for off state, use as native
 	off: function($element){
-		$element.removeClass("editor-active")
+		$element.removeClass("toolbar-active")
 	},
 
 	// make selection state
@@ -151,13 +160,15 @@ $.fn.extend({
 		//editor content keypress handler, specially Enter key press
 		$editor_content.keydown(function(event){
     	Editor.select();
-    	var	currentNode = Editor.container(),
-    			type = Editor.nodeName(currentNode);
+    	var	cNode = Editor.container(),
+    			type = Editor.nodeName(cNode);
 
 			if (event.keyCode == 13 & !event.shiftKey) {
 				if(type == "div") type = "p";
-				if (type == "blockquote" || type == "pre" || $(currentNode).parents("blockquote").length || $(currentNode).parents("pre").length) {
+				if (type == "p" || type == "blockquote" || type == "pre" 
+						|| $(cNode).parents("blockquote").length || $(cNode).parents("pre").length) {
 					event.stopPropagation();
+					console.log($(cNode).parents("blockquote").length);
 					if (Editor.mozilla()) {
 						//mozilla insertParagraph problem
 						document.execCommand("insertHTML", false, "<p></p>");

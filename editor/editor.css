@@ -7,7 +7,7 @@ html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,butt
 	padding: 0;
 }
 
-.toobar-item {
+.toolbar-item {
 	padding: 5px 10px;
 	background: #eee;
 	width: 720px;
@@ -20,7 +20,7 @@ html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,butt
 
 
 
-.toobar-item a {
+.toolbar-item a {
 	text-decoration: none;
 	color: #666;
 	width: 20px;
@@ -38,10 +38,12 @@ html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,butt
 	display: block;
 	border: 1px solid #ccc;
 	width: 720px;
-	min-height: 300px;
+	height: 300px;
 	padding: 10px;
 	box-shadow: 1px 1px 2px rgba(0,0,0,0.05) inset;
 	color: #555;
+	overflow: scroll;
+	resize: vertical;
 }
 
 .editor-content:hover {
@@ -71,7 +73,7 @@ html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,butt
 }
 
 
-.editor-active {
+.toolbar-active {
 	color: #65D88E !important;
 }
 
