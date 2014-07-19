@@ -138,7 +138,7 @@ $.fn.extend({
 			//mozilla wrap problem
 			if (Editor.mozilla()){
 				//mozilla blockquote nested
-				if (action == "blockquote" & (nodeName == "blockquote" || $(node).parents("blockquote").length)) {
+				if (action == "blockquote" & (nodeName == "blockquote" || !!$(node).parents("blockquote").length)) {
 					return false;
 				}
 
@@ -166,7 +166,7 @@ $.fn.extend({
 			if (event.keyCode == 13 & !event.shiftKey) {
 				if(type == "div") type = "p";
 				if (type == "p" || type == "blockquote" || type == "pre" 
-						|| $(cNode).parents("blockquote").length || $(cNode).parents("pre").length) {
+						|| !!$(cNode).parents("blockquote").length || !!$(cNode).parents("pre").length) {
 					event.stopPropagation();
 					console.log($(cNode).parents("blockquote").length);
 					if (Editor.mozilla()) {
