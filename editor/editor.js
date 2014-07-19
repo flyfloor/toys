@@ -110,9 +110,11 @@ var Editor = {
 
 
 $.fn.extend({
-	editor: function(){
+	editor: function(id){
 		var $textArea = $(this);
-
+		if (id) {
+			$editor.attr("id", id);
+		}
 		//initialize value of content view
 		$editor_content.html($textArea.val());
 		if (!$textArea.val()) {

@@ -7,10 +7,14 @@ html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,butt
 	padding: 0;
 }
 
+.editor {
+	width: 700px;
+}
+
 .toolbar-item {
 	padding: 5px 10px;
 	background: #eee;
-	width: 720px;
+	width: 100%;
 	display: inline-block;
 	border: 1px solid #ddd;
 	border-bottom: none;
@@ -37,12 +41,14 @@ html,body,div,section,p,pre,aside,header,footer,article,figure,ul,ol, input,butt
 .editor-content {
 	display: block;
 	border: 1px solid #ccc;
-	width: 720px;
+	width: 100%;
 	height: 300px;
 	padding: 10px;
 	box-shadow: 1px 1px 2px rgba(0,0,0,0.05) inset;
 	color: #555;
-	overflow: scroll;
+	overflow-x: hidden; 
+	overflow-y: scroll;
+	word-wrap:break-word;
 	resize: vertical;
 }
 
